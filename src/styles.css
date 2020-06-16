@@ -1,1 +1,7 @@
-/* You can add global styles to this file, and also import other style files */
+html, body {
+  height: 100%;
+  font-family: "Hiragino Kaku Gothic ProN","メイリオ", sans-serif;
+  font-size: 14px;
+  line-height: 1.42857143;
+  background-color: rgba(255, 251, 251, 0.78);
+}
