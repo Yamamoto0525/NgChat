@@ -4,39 +4,35 @@
       NgChat
     </div>
     <div class="card-body">
-      <ng-container *ngFor="let comment of comments"><!--追加-->
+      <ng-container *ngFor="let comment of comments">
       <div class="media">
-        <div class="media-left">
-          <a href="#" class="icon-rounded">S</a>
+        <!--current_user.uidとcomment.user.uidが等しくない場合に表示-->
+        <div class="media-left" *ngIf="comment.user.uid !== currentUser.uid">
+          <a href="#" class="icon-rounded">{{comment.initial}}</a>
         </div>
         <div class="media-body">
-          <h4 class="media-heading">{{comment.name}} Date:2016/09/01</h4><!--comment.nameに変更-->
-          <div>{{comment.content}}</div><!--comment.contentに変更-->
+          <h4 class="media-heading">{{comment.user.name}} Date:2016/09/01</h4>
+          <div>{{comment.content}}</div>
+        </div>
+        <!--current_user.uidとcomment.user.uidが等しい場合に表示-->
+        <div class="media-right" *ngIf="comment.user.uid === currentUser.uid">
+          <a href="#" class="icon-rounded">{{comment.initial}}</a>
         </div>
       </div>
       <hr>
       </ng-container>
-      <div class="media">
-        <div class="media-body">
-          <h4 class="media-heading">Tanaka Jiro Date:2016/09/01</h4>
-          <div>{{content}}</div><!--contentに変更-->
-        </div>
-        <div class="media-right">
-          <a href="#" class="icon-rounded">T</a>
-        </div>
-      </div>
     </div>
   </section>
 
   <section>
-    <form class="chart-form">
+    <form class="chart-form" (submit)="addComment(content)"><!--addComment()を追加-->
       <div class="input-group">
         <input type="text" class="form-control"
                [(ngModel)]="content"
                name="comment"
-               placeholder="Comment" /><!--ngModel追加-->
+               placeholder="Comment" />
         <div class="input-group-append">
-          <button class="btn btn-info" type="button">SEND</button>
+          <button class="btn btn-info" type="submit">SEND</button><!--submitに変更-->
         </div>
       </div>
     </form>
