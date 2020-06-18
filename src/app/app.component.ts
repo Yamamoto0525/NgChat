@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { Comment, User } from './class/chat'; // Userを追加
+import { Comment, User } from './class/chat';
 
 
-const CURRENT_USER: User = new User(1, 'Tanaka Jiro'); // 自分のUser情報を追加
-const ANOTHER_USER: User = new User(2, 'Suzuki Taro'); // 相手のUser情報を追加
+const CURRENT_USER: User = new User(1, 'Tanaka Jiro');
+const ANOTHER_USER: User = new User(2, 'Suzuki Taro');
 const COMMENTS: Comment[] = [ // クラスを元にコメントを作成
   new Comment(ANOTHER_USER, 'Suzukiの１つ目のコメントです。'),
   new Comment(ANOTHER_USER, 'Suzukiの2つ目のコメントです。'),
@@ -20,7 +20,7 @@ const COMMENTS: Comment[] = [ // クラスを元にコメントを作成
 export class AppComponent {
   public content = '';
   public comments = COMMENTS;
-  public currentUser = CURRENT_USER; // 追加
+  public currentUser = CURRENT_USER;
 
   // 新しいコメントを追加
   addComment(comment: string) {

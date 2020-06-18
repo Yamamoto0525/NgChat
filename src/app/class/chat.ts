@@ -1,4 +1,6 @@
-export class User { // Userの定義を追加
+import * as moment from 'moment'; // 追加
+
+export class User {
   uid: number;
   name: string;
 
@@ -8,14 +10,16 @@ export class User { // Userの定義を追加
   }
 }
 
-export class Comment { // Commentの定義を変更
+export class Comment {
   user: User;
   initial: string;
   content: string;
+  date: number; // 追加
 
   constructor(user: User, content: string) {
     this.user = user;
     this.initial = user.name.slice(0, 1);
     this.content = content;
+    this.date = +moment(); // 追加
   }
 }

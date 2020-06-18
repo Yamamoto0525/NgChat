@@ -1,4 +1,4 @@
-.page { /*更新*/
+.page {
   max-width: 960px;
   height: 100%;
   margin: 0 auto;
@@ -10,11 +10,11 @@
   overflow: scroll;
 }
 
-.page section{ /*追加*/
+.page section {
   margin: 0 10px 30px;
 }
 
-.page .page-footer{ /*追加*/
+.page .page-footer {
   display: block;
   position: fixed;
   margin: 0;
@@ -64,8 +64,3 @@
 .page .card .media-right a.icon-rounded {
   background-color: #5cb85c;
 }
-
-/*削除
-.page .chart-form {
-  margin: 20px 0;
-}*/
