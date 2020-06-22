@@ -10,7 +10,6 @@
           <a href="#" class="icon-rounded">{{comment.initial}}</a>
         </div>
         <div class="media-body">
-          <!--DatePipeを追加-->
           <h4 class="media-heading">{{comment.user.name}} Date: {{comment.date | chatDate}}</h4>
           <div>{{comment.content}}</div>
         </div>
@@ -20,6 +19,16 @@
       </div>
       <hr>
       </ng-container>
+      <!-- Firestoreの反映箇所 -->
+      <div class="media">
+        <div class="media-left">
+          <a href="#" class="icon-rounded">{{(item | async)?.initial}}</a>
+        </div>
+        <div class="media-body">
+          <h4 class="media-heading">{{(item | async)?.user.name}}</h4>
+          <div>{{(item | async)?.content}}</div>
+        </div>
+      </div>
     </div>
   </section>
 

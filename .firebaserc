@@ -1,5 +1,14 @@
 {
   "projects": {
     "default": "ngchat-f1343"
+  },
+  "targets": {
+    "ngchat-f1343": {
+      "hosting": {
+        "NgChat": [
+          "ngchat-f1343"
+        ]
+      }
+    }
   }
 }
