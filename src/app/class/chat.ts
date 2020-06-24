@@ -9,7 +9,7 @@ export class User {
     this.name = name;
   }
 
-  deserialize() { // 追加
+  deserialize() {
     return Object.assign({}, this);
   }
 }
@@ -19,8 +19,8 @@ export class Comment {
   initial: string;
   content: string;
   date: number;
-  key?: string; // 追加
-  editFlag?: boolean; // 追加
+  key?: string;
+  editFlag?: boolean;
 
   constructor(user: User, content: string) {
     this.user = user;
@@ -29,16 +29,16 @@ export class Comment {
     this.date = +moment();
   }
 
-  deserialize() { // 追加
+  deserialize() {
     this.user = this.user.deserialize();
     return Object.assign({}, this);
   }
 
   // 取得した日付を反映し、更新フラグをつける
-  setData(date: number, key: string): Comment { // 更新
+  setData(date: number, key: string): Comment {
     this.date = date;
-    this.key = key; // 追加
-    this.editFlag = false; // 追加
+    this.key = key;
+    this.editFlag = false;
     return this;
   }
 }

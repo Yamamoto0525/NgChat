@@ -4,7 +4,7 @@
       NgChat
     </div>
     <div class="card-body">
-      <ng-container *ngFor="let comment of comments | async"><!-- asyncを追加 -->
+      <ng-container *ngFor="let comment of comments | async">
         <div class="media">
           <div class="media-left" *ngIf="comment.user.uid !== currentUser.uid">
             <a href="#" class="icon-rounded">{{comment.initial}}</a>
@@ -12,8 +12,8 @@
           <div class="media-body">
             <h4 class="media-heading">
               {{comment.user.name}} Date: {{comment.date | chatDate}}
-              <button class="btn btn-primary btn-sm" (click)="toggleEditComment(comment)">編集</button><!-- 追加 -->
-              <button class="btn btn-danger btn-sm" (click)="deleteComment(comment.key)">削除</button><!-- 追加 -->
+              <button class="btn btn-primary btn-sm" (click)="toggleEditComment(comment)">編集</button>
+              <button class="btn btn-danger btn-sm" (click)="deleteComment(comment.key)">削除</button>
             </h4>
             <!-- editFlagによって編集フィールドを切り替える -->
             <ng-container *ngIf="!comment.editFlag">
@@ -38,12 +38,11 @@
         </div>
         <hr>
       </ng-container>
-      <!-- この部分を削除 -->
     </div>
   </section>
 
   <section>
-    <form class="chart-form" (submit)="addComment($event, content)"><!-- $eventを追加 -->
+    <form class="chart-form" (submit)="addComment($event, content)">
       <div class="input-group">
         <input type="text" class="form-control"
                [(ngModel)]="content"
@@ -56,3 +55,4 @@
     </form>
   </section>
 </div>
+
