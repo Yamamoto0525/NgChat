@@ -4,41 +4,51 @@
       NgChat
     </div>
     <div class="card-body">
-      <ng-container *ngFor="let comment of comments">
-      <div class="media">
-        <div class="media-left" *ngIf="comment.user.uid !== currentUser.uid">
-          <a href="#" class="icon-rounded">{{comment.initial}}</a>
+      <ng-container *ngFor="let comment of comments | async"><!-- asyncを追加 -->
+        <div class="media">
+          <div class="media-left" *ngIf="comment.user.uid !== currentUser.uid">
+            <a href="#" class="icon-rounded">{{comment.initial}}</a>
+          </div>
+          <div class="media-body">
+            <h4 class="media-heading">
+              {{comment.user.name}} Date: {{comment.date | chatDate}}
+              <button class="btn btn-primary btn-sm" (click)="toggleEditComment(comment)">編集</button><!-- 追加 -->
+              <button class="btn btn-danger btn-sm" (click)="deleteComment(comment.key)">削除</button><!-- 追加 -->
+            </h4>
+            <!-- editFlagによって編集フィールドを切り替える -->
+            <ng-container *ngIf="!comment.editFlag">
+              {{comment.content}}
+            </ng-container>
+            <ng-container *ngIf="comment.editFlag">
+              <div class="input-group">
+                <input type="text" class="form-control"
+                       [(ngModel)]="comment.content"
+                       name="edit_comment">
+              </div>
+              <div class="edit-buttons">
+                <button class="btn btn-success btn-sm" (click)="saveEditComment(comment)">保存</button>
+                <button class="btn btn-warning btn-sm" (click)="resetEditComment(comment)">リセット</button>
+              </div>
+            </ng-container>
+            <!-- 切り替えここまで -->
+          </div>
+          <div class="media-right" *ngIf="comment.user.uid === currentUser.uid">
+            <a href="#" class="icon-rounded">{{comment.initial}}</a>
+          </div>
         </div>
-        <div class="media-body">
-          <h4 class="media-heading">{{comment.user.name}} Date: {{comment.date | chatDate}}</h4>
-          <div>{{comment.content}}</div>
-        </div>
-        <div class="media-right" *ngIf="comment.user.uid === currentUser.uid">
-          <a href="#" class="icon-rounded">{{comment.initial}}</a>
-        </div>
-      </div>
-      <hr>
+        <hr>
       </ng-container>
-      <!-- Firestoreの反映箇所 -->
-      <div class="media">
-        <div class="media-left">
-          <a href="#" class="icon-rounded">{{(item | async)?.initial}}</a>
-        </div>
-        <div class="media-body">
-          <h4 class="media-heading">{{(item | async)?.user.name}}</h4>
-          <div>{{(item | async)?.content}}</div>
-        </div>
-      </div>
+      <!-- この部分を削除 -->
     </div>
   </section>
 
   <section>
-    <form class="chart-form" (submit)="addComment(content)">
+    <form class="chart-form" (submit)="addComment($event, content)"><!-- $eventを追加 -->
       <div class="input-group">
         <input type="text" class="form-control"
                [(ngModel)]="content"
                name="comment"
-               placeholder="Comment" />
+               placeholder="Comment"/>
         <div class="input-group-append">
           <button class="btn btn-info" type="submit">SEND</button>
         </div>
