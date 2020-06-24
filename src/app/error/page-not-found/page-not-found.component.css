@@ -1,0 +1,22 @@
+.page {
+  max-width: 960px;
+  height: 100%;
+  margin: 0 auto;
+  padding: 10px 0;
+  background-color: #fff;
+  border-left: 1px solid #DDDDDD;
+  border-right: 1px solid #DDDDDD;
+  box-shadow: 0 0 15px #DDDDDD;
+  overflow: scroll;
+}
+
+.page section {
+  margin: 50px 10px 30px;
+}
+
+.page section.card .error-code {
+  margin: 30px 0;
+  color: #2d353c;
+  font-size: 96px;
+  line-height: 100px;
+}

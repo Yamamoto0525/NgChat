@@ -1,30 +1,31 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-// FormsModuleを削除
 import { environment } from '../environments/environment';
+import { RouterModule } from '@angular/router'; // 追加
+import { AppRoutingModule } from './app-routing.module';
+import { SharedModule } from './shared/shared.module';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
-
-import { AppRoutingModule } from './app-routing.module';
-import { SharedModule } from './shared/shared.module'; // 追加
-import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-// ChatDatePipeを削除
+
+import { AppComponent } from './app.component';
 import { ChatComponent } from './chat/chat.component';
-import { HeaderComponent } from './header/header.component';; // 追加
+import { HeaderComponent } from './header/header.component';
+import { PageNotFoundComponent } from './error/page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ChatComponent,
-    HeaderComponent, // 追加
+    HeaderComponent,
+    PageNotFoundComponent,
   ],
   imports: [
     BrowserModule,
+    RouterModule, // 追加
     AppRoutingModule,
-    // FormsModuleを削除
-    SharedModule, // 追加
+    SharedModule,
     NgbModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
