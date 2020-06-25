@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { environment } from '../environments/environment';
-import { RouterModule } from '@angular/router'; // 追加
+import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
 import { SharedModule } from './shared/shared.module';
 import { AngularFireModule } from '@angular/fire';
@@ -23,7 +23,7 @@ import { PageNotFoundComponent } from './error/page-not-found/page-not-found.com
   ],
   imports: [
     BrowserModule,
-    RouterModule, // 追加
+    RouterModule,
     AppRoutingModule,
     SharedModule,
     NgbModule,

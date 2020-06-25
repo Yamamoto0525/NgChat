@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { SessionService } from '../../service/session.service'; // 追加
 
 @Component({
   selector: 'app-login',
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginComponent implements OnInit {
 
-  constructor() { }
+  constructor(private sessionService: SessionService) { } // 追加
 
-  ngOnInit(): void {
+  ngOnInit() {}
+
+  submitLogin() { // 追加
+    this.sessionService.login();
   }
 
 }

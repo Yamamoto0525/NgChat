@@ -6,7 +6,7 @@
       <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
       <label for="inputPassword" class="sr-only">Password</label>
       <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
-      <button class="btn btn-lg btn-info btn-block" type="submit">LOGIN</button>
+      <button class="btn btn-lg btn-info btn-block" type="submit" (click)="submitLogin()">LOGIN</button><!-- submitLogin()を追加 -->
     </form>
     <a routerLink="/account/sign-up" class="login-link">アカウントを作る</a>
   </section>
