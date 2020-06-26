@@ -43,15 +43,33 @@ export class Comment {
   }
 }
 
-export class Session { // 追加
+export class Session {
   login: boolean;
 
   constructor() {
     this.login = false;
   }
 
-  reset(): Session { // 追加
+  reset(): Session {
     this.login = false;
     return this;
+  }
+}
+
+export class Password { // 追加
+  email: string;
+  password: string;
+  passwordConfirmation: string;
+
+  constructor() {
+    this.email = '';
+    this.password = '';
+    this.passwordConfirmation = '';
+  }
+
+  reset(): void {
+    this.email = '';
+    this.password = '';
+    this.passwordConfirmation = '';
   }
 }
