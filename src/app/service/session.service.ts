@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
-import { Router } from '@angular/router';
-import { AngularFireAuth } from '@angular/fire/auth'; // 追加
-import * as firebase from 'firebase/app'; // 追加
+import { Observable, Subject } from 'rxjs'; // 更新
+import { map } from 'rxjs/operators'; // 更新
 
-import { Password, Session } from '../class/chat'; // 更新
+import { Router } from '@angular/router';
+import { AngularFireAuth } from '@angular/fire/auth';
+
+import { Password, Session } from '../class/chat';
 
 
 @Injectable({
@@ -17,10 +18,34 @@ export class SessionService {
   public sessionState = this.sessionSubject.asObservable();
 
   constructor(private router: Router,
-              private afAuth: AngularFireAuth) { // 追加
+              private afAuth: AngularFireAuth) {
   }
 
-  login(account: Password): void { // 変更
+  // ログイン状況確認
+  checkLogin(): void { // 追加
+    this.afAuth
+      .authState
+      .subscribe(auth => {
+        // ログイン状態を返り値の有無で判断
+        this.session.login = (!!auth);
+        this.sessionSubject.next(this.session);
+      });
+  }
+
+  // ログイン状況確認(State)
+  checkLoginState(): Observable<Session> { // 追加
+    return this.afAuth
+      .authState
+      .pipe(
+        map(auth => {
+          // ログイン状態を返り値の有無で判断
+          this.session.login = (!!auth);
+          return this.session;
+        })
+      );
+  }
+
+  login(account: Password): void {
     this.afAuth
       .signInWithEmailAndPassword(account.email, account.password)
       .then(auth => {
@@ -41,7 +66,7 @@ export class SessionService {
       });
   }
 
-  logout(): void {// 変更
+  logout(): void {
     this.afAuth
       .signOut()
       .then(() => {
@@ -55,10 +80,10 @@ export class SessionService {
   }
 
   // アカウント作成
-  signup(account: Password): void { // 追加
+  signup(account: Password): void {
     this.afAuth
-      .createUserWithEmailAndPassword(account.email, account.password) // アカウント作成
-      .then(auth => auth.user.sendEmailVerification()) // メールアドレス確認
+      .createUserWithEmailAndPassword(account.email, account.password)
+      .then(auth => auth.user.sendEmailVerification())
       .then(() => alert('メールアドレス確認メールを送信しました。'))
       .catch(err => {
         console.log(err);

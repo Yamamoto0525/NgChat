@@ -1,6 +1,6 @@
 <div class="page">
   <section class="card">
-    <form class="form-signup" (ngSubmit)="submitSignUp($event)" #signUpForm="ngForm"><!-- 追加 -->
+    <form class="form-signup" (ngSubmit)="submitSignUp($event)" #signUpForm="ngForm">
       <h2 class="form-signup-heading">アカウント作成</h2>
       <label for="inputEmail" class="sr-only">
         Email address
@@ -10,7 +10,7 @@
              placeholder="Email address"
              [(ngModel)]="account.email"
              #email="ngModel"
-             autocomplete="username email" required autofocus><!-- #email, name, autocompleteを追加 -->
+             autocomplete="username email" required autofocus>
       <label for="inputPassword" class="sr-only">
         Password
       </label>
@@ -19,7 +19,7 @@
              placeholder="Password"
              [(ngModel)]="account.password"
              #password="ngModel"
-             autocomplete="new-password" required><!-- #password, name, autocompleteを追加 -->
+             autocomplete="new-password" required>
       <label for="confirmationPassword" class="sr-only">
         Password
       </label>
@@ -28,11 +28,11 @@
              placeholder="Password Confirmation"
              [(ngModel)]="account.passwordConfirmation"
              #password_confirmation="ngModel"
-             autocomplete="new-password" required><!-- #password_confirmation, name, autocompleteを追加 -->
+             autocomplete="new-password" required>
       <button class="btn btn-lg btn-success btn-block"
               type="submit" [disabled]="!signUpForm.form.valid">
         SIGN UP
-      </button><!-- clickイベントを削除し、disabledを追加 -->
+      </button>
     </form>
     <a routerLink="/account/login"class="signup-link">
       ログインする
