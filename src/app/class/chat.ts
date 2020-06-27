@@ -1,12 +1,12 @@
 import * as moment from 'moment';
 
 export class User {
-  uid: number;
+  uid: string; // 変更(number -> string)
   name: string;
 
-  constructor(uid: number, name: string) {
-    this.uid = uid;
-    this.name = name;
+  constructor(uid?: string, name?: string) { // 変更
+    this.uid = (uid) ? uid : '';
+    this.name = (name) ? name : '';
   }
 
   deserialize() {
@@ -45,29 +45,35 @@ export class Comment {
 
 export class Session {
   login: boolean;
+  user: User; // 追加
 
   constructor() {
     this.login = false;
+    this.user = new User(); // 追加
   }
 
   reset(): Session {
     this.login = false;
+    this.user =  new User(); // 追加
     return this;
   }
 }
 
 export class Password {
+  name: string; // 追加
   email: string;
   password: string;
   passwordConfirmation: string;
 
   constructor() {
+    this.name = ''; // 追加
     this.email = '';
     this.password = '';
     this.passwordConfirmation = '';
   }
 
   reset(): void {
+    this.name = ''; // 追加
     this.email = '';
     this.password = '';
     this.passwordConfirmation = '';

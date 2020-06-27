@@ -42,6 +42,17 @@
   z-index: 2;
 }
 
+.form-signup #inputName { /*追加*/
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.form-signup #inputEmail {/*変更*/
+  border-radius: 0;
+  border-collapse: collapse;
+  margin-bottom: -1px;
+}
+
 .form-signup #inputEmail {
   margin-bottom: -1px;
   border-bottom-right-radius: 0;
