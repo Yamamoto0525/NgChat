@@ -1,5 +1,8 @@
 {
   "projects": {
+    "dev": "開発用FirebaseプロジェクトID",
+    "staging": "ステージング用FirebaseプロジェクトID",
+    "prod": "本番用FirebaseプロジェクトID",
     "default": "ngchat-f1343"
   },
   "targets": {
