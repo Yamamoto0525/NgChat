@@ -15,11 +15,11 @@ export class User {
 }
 
 export class Comment {
-  user: User;
+  user: User | any;
   initial: string;
   content: string;
   date: number;
-  key?: string;
+  id?: string; // 変更
   editFlag?: boolean;
 
   constructor(user: User, content: string) {
@@ -37,7 +37,7 @@ export class Comment {
   // 取得した日付を反映し、更新フラグをつける
   setData(date: number, key: string): Comment {
     this.date = date;
-    this.key = key;
+    this.id = key; // 変更
     this.editFlag = false;
     return this;
   }

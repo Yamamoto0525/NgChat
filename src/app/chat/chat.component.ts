@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Comment, User } from '../class/chat';
-import { AngularFirestore } from '@angular/fire/firestore';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-// import { SessionService } from '../service/session.service'; // 削除
-import { Store } from '@ngrx/store'; // 追加
-import * as fromSession from '../app-store/reducers'; // 追加
+// import { AngularFirestore } from '@angular/fire/firestore'; // 削除
+// import { Observable } from 'rxjs'; // 削除
+// import { map } from 'rxjs/operators'; // 削除
+
+import { Store } from '@ngrx/store';
+import * as fromSession from '../app-store/reducers';
+import * as fromChat from './store/chat.reducer'; // 追加
+import * as ChatActions from './store/chat.actions'; // 追加
 
 @Component({
   selector: 'app-chat',
@@ -15,79 +17,63 @@ import * as fromSession from '../app-store/reducers'; // 追加
 export class ChatComponent implements OnInit {
 
   public content = '';
-  public comments: Observable<Comment[]>;
+  public comments: Comment[] = []; // 変更
   public currentUser: User;
 
   // DI（依存性注入する機能を指定）
-  constructor(private db: AngularFirestore,
-              private store: Store<fromSession.State>) { // 追加
-    this.store.select(fromSession.getSession) // 変更
+  constructor(private chat: Store<fromChat.State>, // 追加
+              // private db: AngularFirestore, // 削除
+              private store: Store<fromSession.State>) {
+    this.store
+      .select(fromSession.getSession)
       .subscribe(data => {
         this.currentUser = data.user;
       });
+    this.chat.select(fromChat.selectAllChats)
+      .subscribe((comments: Comment[]) => {
+        this.comments = [];
+        comments.forEach((comment: Comment) => {
+          this.comments.push(
+            new Comment(comment.user, comment.content)
+              .setData(comment.date, comment.id)
+          );
+        });
+      }); // 追加
   }
 
-  ngOnInit(): void {
-    this.comments = this.db
-      .collection<Comment>('comments', ref => {
-        return ref.orderBy('date', 'asc');
-      })
-      .snapshotChanges()
-      .pipe(
-        map(actions => actions.map(action => {
-          // 日付をセットしたコメントを返す
-          const data = action.payload.doc.data() as Comment;
-          const key = action.payload.doc.id;
-          const commentData = new Comment(data.user, data.content);
-          commentData.setData(data.date, key);
-          return commentData;
-        })));
+  ngOnInit() { // 変更
+    this.store.dispatch(ChatActions.loadChats({ chats: [] }));
   }
 
   // 新しいコメントを追加
-  addComment(e: Event, comment: string) {
-    if (comment) {
-      this.db
-        .collection('comments')
-        .add(new Comment(this.currentUser, comment).deserialize());
+  addComment(e: Event, content: string) { // 変更
+    e.preventDefault();
+    if (content) {
+      const tmpComment = new Comment(this.currentUser, content).deserialize();
+      this.chat.dispatch(ChatActions.addChat({ chat: tmpComment }));
       this.content = '';
     }
   }
 
   // 編集フィールドの切り替え
-  toggleEditComment(comment: Comment) {
-    comment.editFlag = (!comment.editFlag);
+  toggleEditComment(comment: Comment) { // 変更
+    comment.editFlag = !comment.editFlag;
   }
 
   // コメントを更新する
-  saveEditComment(comment: Comment) {
-    this.db
-      .collection('comments')
-      .doc(comment.key)
-      .update({
-        content: comment.content,
-        date: comment.date
-      })
-      .then(() => {
-        alert('コメントを更新しました');
-        comment.editFlag = false;
-      });
+  saveEditComment(comment: Comment) { // 変更
+    comment.editFlag = false;
+    this.chat.dispatch(ChatActions.updateChat({ chat: { id: comment.id, changes: comment } }));
   }
 
   // コメントをリセットする
-  resetEditComment(comment: Comment) {
+  resetEditComment(comment: Comment) { // 変更
     comment.content = '';
   }
 
   // コメントを削除する
-  deleteComment(key: string) {
-    this.db
-      .collection('comments')
-      .doc(key)
-      .delete()
-      .then(() => {
-        alert('コメントを削除しました');
-      });
+  deleteComment(key: string) { // 変更
+    this.chat.dispatch(ChatActions.deleteChat({ id: key }));
   }
 
 }

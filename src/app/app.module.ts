@@ -10,7 +10,7 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppComponent } from './app.component';
-import { ChatComponent } from './chat/chat.component';
+// import { ChatComponent } from './chat/chat.component'; // 削除
 import { HeaderComponent } from './header/header.component';
 import { PageNotFoundComponent } from './error/page-not-found/page-not-found.component';
 import { AppStoreModule } from './app-store/app-store.module';
@@ -18,7 +18,7 @@ import { AppStoreModule } from './app-store/app-store.module';
 @NgModule({
   declarations: [
     AppComponent,
-    ChatComponent,
+    // ChatComponent, // 削除
     HeaderComponent,
     PageNotFoundComponent,
   ],

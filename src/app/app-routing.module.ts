@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { ChatComponent } from './chat/chat.component';
+// import { ChatComponent } from './chat/chat.component'; 削除
 import { PageNotFoundComponent } from './error/page-not-found/page-not-found.component';
 import { AccountModule } from './account/account.module';
 import { AuthGuard } from './guard/auth.guard';
@@ -14,7 +14,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    component: ChatComponent,
+    loadChildren: () => import('./chat/chat.module').then(m => m.ChatModule), // 変更
     canActivate: [AuthGuard],
   },
   {

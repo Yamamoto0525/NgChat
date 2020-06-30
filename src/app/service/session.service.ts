@@ -1,39 +1,34 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs'; // 変更
+import { Observable, of } from 'rxjs';
 import { map, switchMap, take } from 'rxjs/operators';
-// import { User as fbUser } from 'firebase/app'; // 削除
 
 import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { Store } from '@ngrx/store'; // 追加
+import { Store } from '@ngrx/store';
 
-import { Password, User } from '../class/chat'; // 変更
-import * as fromSession from '../app-store/reducers'; // 追加
-import * as SessionActions from '../app-store/actions/session.actions'; // 追加
+import { Password, User } from '../class/chat';
+import * as fromSession from '../app-store/reducers';
+import * as SessionActions from '../app-store/actions/session.actions';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SessionService {
 
-  // public session = new Session(); // 削除
-  // public sessionSubject = new Subject<Session>(); // 削除
-  // public sessionState = this.sessionSubject.asObservable(); // 削除
-
   constructor(private router: Router,
               private afAuth: AngularFireAuth,
               private afs: AngularFirestore,
-              private store: Store<fromSession.State>) { // 追加
+              private store: Store<fromSession.State>) {
   }
 
   // ログイン状況確認
-  checkLogin(): void { // 変更
+  checkLogin(): void {
     this.store.dispatch(SessionActions.loadSessions());
   }
 
   // ログイン状況確認(State)
-  checkLoginState(): Observable<{ login: boolean }> { // 変更
+  checkLoginState(): Observable<{ login: boolean }> {
     return this.afAuth
       .authState
       .pipe(
@@ -44,11 +39,11 @@ export class SessionService {
       );
   }
 
-  login(account: Password): void { // 変更
+  login(account: Password): void {
     this.store.dispatch(SessionActions.loginSessions({ email: account.email, password: account.password }));
   }
 
-  logout(): void { // 変更
+  logout(): void {
     this.store.dispatch(SessionActions.logoutSessions());
   }
 

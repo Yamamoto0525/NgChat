@@ -1,15 +1,15 @@
 <nav class="navbar fixed-top navbar-dark bg-primary">
   <a class="navbar-brand" href="#">NgChat</a>
   <!-- ログイン状態で分岐 -->
-  <span class="navbar-text" *ngIf="!(session$ | async)?.login"><!-- 変更 -->
+  <span class="navbar-text" *ngIf="!(session$ | async)?.login">
     <a routerLink="/account/login">Login</a>
   </span>
-  <span class="navbar-text" *ngIf="(session$ | async)?.login"><!-- 変更 -->
+  <span class="navbar-text" *ngIf="(session$ | async)?.login">
     <a routerLink="/account/login" (click)="logout()">Logout</a>
   </span>
   <!-- 分岐ここまで -->
 </nav>
-<div class="progress" style="height: 3px;" *ngIf="(loading$ | async)"> <!-- 追加 -->
+<div class="progress" style="height: 3px;" *ngIf="(loadingSession$ | async) || (loadingChat$ | async)"><!-- 変更 -->
   <div class="progress-bar bg-info progress-bar-striped progress-bar-animated"
        role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
 </div>

@@ -134,7 +134,7 @@ export class SessionEffects {
   );
 
   // エラー発生時の処理
-  private handleLoginError(operation = 'operation', result: any, dialog?: 'login' | 'logout') { // 変更
+  private handleLoginError(operation = 'operation', result: any, dialog?: 'login' | 'logout') {
     return (error: any): Observable<any> => {
 
       // 失敗した操作の名前、エラーログをconsoleに出力

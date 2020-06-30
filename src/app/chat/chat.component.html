@@ -4,7 +4,7 @@
       NgChat
     </div>
     <div class="card-body">
-      <ng-container *ngFor="let comment of comments | async">
+      <ng-container *ngFor="let comment of comments">
         <div class="media">
           <div class="media-left" *ngIf="comment.user.uid !== currentUser.uid">
             <a href="#" class="icon-rounded">{{comment.initial}}</a>
@@ -12,8 +12,11 @@
           <div class="media-body">
             <h4 class="media-heading">
               {{comment.user.name}} Date: {{comment.date | chatDate}}
-              <button class="btn btn-primary btn-sm" (click)="toggleEditComment(comment)">編集</button>
-              <button class="btn btn-danger btn-sm" (click)="deleteComment(comment.key)">削除</button>
+              <!-- 自分のuidのときのみ、編集領域を表示 -->
+              <ng-container *ngIf="comment.user.uid === currentUser.uid"><!-- 追加 -->
+                <button class="btn btn-primary btn-sm" (click)="toggleEditComment(comment)">編集</button>
+                <button class="btn btn-danger btn-sm" (click)="deleteComment(comment.id)">削除</button>
+              </ng-container>
             </h4>
             <!-- editFlagによって編集フィールドを切り替える -->
             <ng-container *ngIf="!comment.editFlag">
