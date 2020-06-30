@@ -126,5 +126,8 @@
       }
     }
   },
-  "defaultProject": "NgChat"
+  "defaultProject": "NgChat",
+  "cli": {
+    "defaultCollection": "@ngrx/schematics"
+  }
 }

@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-
 import { SessionService } from '../service/session.service';
 import { Session } from '../class/chat';
-
+import { Observable } from 'rxjs'; // 追加
+import { Store } from '@ngrx/store'; // 追加
+import * as fromSession from '../app-store/reducers'; // 追加
 
 @Component({
   selector: 'app-header',
@@ -11,17 +12,18 @@ import { Session } from '../class/chat';
 })
 export class HeaderComponent implements OnInit {
 
-  public login = false;
+  public loading$: Observable<boolean>; // 追加
+  public session$: Observable<Session>; // 追加
+  // public login = false; // 削除
 
-  constructor(public sessionService: SessionService) {
+  constructor(private sessionService: SessionService,
+              private store: Store<fromSession.State>) { // 変更
+    this.loading$ = this.store.select(fromSession.getLoading); // 追加
+    this.session$ = this.store.select(fromSession.getSession);
   }
 
   ngOnInit() {
-    this.sessionService.sessionState.subscribe((session: Session) => {
-      if (session) {
-        this.login = session.login;
-      }
-    });
+    // 削除
   }
 
   logout(): void {

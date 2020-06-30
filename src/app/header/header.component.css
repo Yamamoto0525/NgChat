@@ -1,0 +1,6 @@
+.progress { /* 追加 */
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: 1050;
+}

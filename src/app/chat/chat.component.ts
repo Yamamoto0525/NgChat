@@ -3,10 +3,9 @@ import { Comment, User } from '../class/chat';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { SessionService } from '../service/session.service'; // 追加
-
-// const CURRENT_USER: User = new User(1, 'Tanaka Jiro'); // 削除
-// const ANOTHER_USER: User = new User(2, 'Suzuki Taro'); // 削除
+// import { SessionService } from '../service/session.service'; // 削除
+import { Store } from '@ngrx/store'; // 追加
+import * as fromSession from '../app-store/reducers'; // 追加
 
 @Component({
   selector: 'app-chat',
@@ -17,13 +16,12 @@ export class ChatComponent implements OnInit {
 
   public content = '';
   public comments: Observable<Comment[]>;
-  public currentUser: User; // 変更
+  public currentUser: User;
 
   // DI（依存性注入する機能を指定）
   constructor(private db: AngularFirestore,
-              private session: SessionService) { // 追加
-    this.session // 追加
-      .sessionState
+              private store: Store<fromSession.State>) { // 追加
+    this.store.select(fromSession.getSession) // 変更
       .subscribe(data => {
         this.currentUser = data.user;
       });

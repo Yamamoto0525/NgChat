@@ -13,6 +13,7 @@ import { AppComponent } from './app.component';
 import { ChatComponent } from './chat/chat.component';
 import { HeaderComponent } from './header/header.component';
 import { PageNotFoundComponent } from './error/page-not-found/page-not-found.component';
+import { AppStoreModule } from './app-store/app-store.module';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { PageNotFoundComponent } from './error/page-not-found/page-not-found.com
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     AngularFireAuthModule,
+    AppStoreModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
