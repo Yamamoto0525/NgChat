@@ -1,15 +1,20 @@
 {
   "projects": {
     "dev": "開発用FirebaseプロジェクトID",
-    "staging": "ステージング用FirebaseプロジェクトID",
-    "prod": "本番用FirebaseプロジェクトID",
-    "default": "ngchat-f1343"
+    "prod": "本番用FirebaseプロジェクトID"
   },
   "targets": {
-    "ngchat-f1343": {
+    ""開発用FirebaseプロジェクトID": {
       "hosting": {
         "NgChat": [
-          "ngchat-f1343"
+          ""開発用FirebaseプロジェクトID"
+        ]
+      }
+    },
+    "本番用FirebaseプロジェクトID": {
+      "hosting": {
+        "NgChatProd": [
+          "本番用FirebaseプロジェクトID"
         ]
       }
     }

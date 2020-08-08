@@ -32,6 +32,21 @@
           "destination": "/index.html"
         }
       ]
+    },
+    {
+      "target": "NgChatProd",
+      "public": "dist/NgChat",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ],
+      "rewrites": [
+        {
+          "source": "**",
+          "destination": "/index.html"
+        }
+      ]
     }
   ]
 }
