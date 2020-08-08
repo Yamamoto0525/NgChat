@@ -4,10 +4,10 @@
     "prod": "本番用FirebaseプロジェクトID"
   },
   "targets": {
-    ""開発用FirebaseプロジェクトID": {
+    "開発用FirebaseプロジェクトID": {
       "hosting": {
         "NgChat": [
-          ""開発用FirebaseプロジェクトID"
+          "開発用FirebaseプロジェクトID"
         ]
       }
     },
